@@ -30,7 +30,7 @@ function Home() {
   return (
     <>
       <main>
-        <p>Bạn không thể làm được. Tôi tin tưởng vào bạn.</p>
+        <p>You can't do it. I believe in you!</p>
       </main>
       <nav>
         <Link to="/login">Login</Link>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link, NavLink, useNavigate} from 'react-router-dom';
-import {Label, Text, Input, Button} from '@fluentui/react-components';
+import {Link,  useNavigate} from 'react-router-dom';
+import {Text, Input, Button} from '@fluentui/react-components';
 import { ArrowLeftRegular } from '@fluentui/react-icons';
 import { useForm } from "react-hook-form";
 
@@ -35,7 +35,7 @@ function Register() {
           <nav>
           <br/>
           <Button color="#c989e8" icon={<ArrowLeftRegular />}
-          onClick={() => navigate("/")}>Back to Homepage</Button>
+          onClick={() => navigate("/")}>Back to Board</Button>
           </nav>
           <br/>
         </>

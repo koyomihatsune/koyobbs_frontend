@@ -2,7 +2,7 @@ import React from 'react';
 
 function Background() {
   return (
-    <div>
+    <div width="100%">
         <div style = {{
         content: '',
         position: "absolute",
@@ -18,7 +18,7 @@ function Background() {
         content: '',
         position: "absolute",
         top: "-200px",
-        right:" -200px",
+        right:" 0px",
         width: "400px",
         height: "400px",
         background: "#b3d4ff",

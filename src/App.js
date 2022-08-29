@@ -11,6 +11,7 @@ import Test from './_components/Test'
 import Profile from './_components/pages/Profile';
 import AllPost from './_components/pages/AllPost';
 import NavigationBar from './_components/NavigationBar';
+import CreatePost from './_components/pages/CreatePost';
 
 const getTabId = (itemKey) => {
   return `ShapeColorPivot_${itemKey}`;
@@ -32,7 +33,9 @@ function App() {
                 <Route path="register" element={<Register />} />
                 <Route path="/" element={<AllPost />} />
                 <Route path="me" element={<Profile />} />
+                <Route exact path="post/new" element={<CreatePost />} />
                 <Route path="test" element={<Test />} />
+                
               </Routes>
               </div>
             </div>   

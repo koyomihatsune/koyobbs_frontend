@@ -4,16 +4,38 @@ import { Card, CardFooter, CardHeader, CardPreview, ASSET_URL } from "@fluentui/
 import { Body1, Text , Caption1, Button, Image} from "@fluentui/react-components";
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
+import axios from 'axios';
+import { API_LINK, HOSTNAME } from '../../Constants';
 
 function PostCard(props) {
-  const examplePost = {
-    title: "SEGA Announces Decision to Launch iOS/Android Game Project SEKAI COLORFUL STAGE! feat. Hatsune Miku Worldwide with U.S., Europe, and Asia as Target Regions",
-    content: "SEGA CORPORATION (hereinafter SEGA, HQ: Shinagawa, Tokyo, President and COO: Yukio Sugino) has decided to launch localized editions of Project SEKAI COLORFUL STAGE! feat. Hatsune Miku (hereinafter Project SEKAI) for iOS/Android, which it runs in partnership with Colorful Palette Inc., mainly aimed at the U.S., Europe, and Asia, but also worldwide.",
-    thumbnail: "https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg"
+  const examplePostData = {
+    id: "2",
+    title: "Hello",
+    thumbnail: "https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg",
+    content: "This is Hello post by User 5",
+    authorid: "5",
+    created_at: "2022-08-19T15:10:40.000+07:00",
+    updated_at: "2022-08-19T15:10:48.000+07:00"
   }
 
   const navigate = useNavigate();
   const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
+
+  const getAllPost = async () => {
+    axios.get(HOSTNAME + API_LINK.ALLPOSTS).then(
+      (response) => {
+        if (response.data.status === "Success") {
+          setPostListData(response.data.data); 
+        }
+        setStatus(response.data.status);
+      }
+    )
+  }
+
+  useEffect(() => {
+    getAllPost()
+  }, []);
+
   
   return (
       <>
@@ -35,23 +57,23 @@ function PostCard(props) {
                   </div>
               </CardFooter>
               <CardPreview>
-                <img src={props.data.thumbnail} alt="Preview of a Word document " />
+                <Image src="https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg" style={{width:"100%", borderRadius: "0px", aspectRatio:"16 / 9",}}></Image>
               </CardPreview>
               <CardFooter>
-                    <div>
+                    <div style= {{width: "100%"}}>
                     <LinesEllipsis
                       text= {props.data.title}
                       maxLine='3'
                       ellipsis='...'
                       trimRight
-                      basedOn='letters' style={{fontSize: 15, fontWeight: "bold",marginBottom:"10px"}}
+                      basedOn='letters' style={{fontSize: 15, fontWeight: "bold",marginBottom:"10px", width: "100%"}}
                     />
                     <LinesEllipsis
                       text={props.data.content}
                       maxLine='3'
                       ellipsis='...'
                       trimRight
-                      basedOn='letters' style={{fontSize: 14}}
+                      basedOn='letters' style={{fontSize: 14, width: "100%"}}
                     />
                     </div>
               </CardFooter>

@@ -82,7 +82,7 @@ function AuthCommandBar(props) {
     return (
       <>
         <div>
-            <NavLink to="/register" style={ButtonStyle}>
+            <NavLink to="/post/new" style={ButtonStyle}>
             <Button icon={<DocumentAdd20Regular/>} appearance="primary">
                 Post something new
             </Button>

@@ -8,7 +8,7 @@ function Test() {
   const navigate = useNavigate();
   return (
       <>
-           <CreatePost/>
+           <Post/>
       </>
     );
   }

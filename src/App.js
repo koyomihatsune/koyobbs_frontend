@@ -10,6 +10,7 @@ import Register from './_components/auth/Register';
 import Test from './_components/Test'
 import Profile from './_components/pages/Profile';
 import AllPost from './_components/pages/AllPost';
+import Post from './_components/post/Post';
 import NavigationBar from './_components/NavigationBar';
 import CreatePost from './_components/pages/CreatePost';
 
@@ -34,7 +35,8 @@ function App() {
                 <Route path="/" element={<AllPost />} />
                 <Route path="me" element={<Profile />} />
                 <Route exact path="post/new" element={<CreatePost />} />
-                <Route path="test" element={<Test />} />
+                <Route path="post/:postID" element={<Post/>} />
+                
                 
               </Routes>
               </div>

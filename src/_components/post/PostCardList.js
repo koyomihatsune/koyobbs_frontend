@@ -6,19 +6,6 @@ import "react-simple-flex-grid/lib/main.css";
 import Failure from '../status/Failure';
 
 function PostCardList(props) {
-  // const examplePostList = [{
-  //   title: "SEGA Announces Decision to Launch iOS/Android Game Project SEKAI COLORFUL STAGE! feat. Hatsune Miku Worldwide with U.S., Europe, and Asia as Target Regions",
-  //   content: "SEGA CORPORATION (hereinafter SEGA, HQ: Shinagawa, Tokyo, President and COO: Yukio Sugino) has decided to launch localized editions of Project SEKAI COLORFUL STAGE! feat. Hatsune Miku (hereinafter Project SEKAI) for iOS/Android, which it runs in partnership with Colorful Palette Inc., mainly aimed at the U.S., Europe, and Asia, but also worldwide.",
-  //   thumbnail: "https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg"
-  // }, {
-  //   title: "SEGA Announces Decision to Launch iOS/Android Game Project SEKAI COLORFUL STAGE! feat. Hatsune Miku Worldwide with U.S., Europe, and Asia as Target Regions",
-  //   content: "SEGA CORPORATION (hereinafter SEGA, HQ: Shinagawa, Tokyo, President and COO: Yukio Sugino) has decided to launch localized editions of Project SEKAI COLORFUL STAGE! feat. Hatsune Miku (hereinafter Project SEKAI) for iOS/Android, which it runs in partnership with Colorful Palette Inc., mainly aimed at the U.S., Europe, and Asia, but also worldwide.",
-  //   thumbnail: "https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg"
-  // }, {
-  //   title: "SEGA Announces Decision to Launch iOS/Android Game Project SEKAI COLORFUL STAGE! feat. Hatsune Miku Worldwide with U.S., Europe, and Asia as Target Regions",
-  //   content: "SEGA CORPORATION (hereinafter SEGA, HQ: Shinagawa, Tokyo, President and COO: Yukio Sugino) has decided to launch localized editions of Project SEKAI COLORFUL STAGE! feat. Hatsune Miku (hereinafter Project SEKAI) for iOS/Android, which it runs in partnership with Colorful Palette Inc., mainly aimed at the U.S., Europe, and Asia, but also worldwide.",
-  //   thumbnail: "https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg"
-  // }]
   const navigate = useNavigate();
   
   return (

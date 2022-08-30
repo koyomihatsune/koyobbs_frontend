@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate} from 'react-router-dom';
-import {Image, Text, Button, makeStyles, tokens, useId, Label, Textarea, Input} from '@fluentui/react-components'
-import { ArrowLeftRegular, ArrowDownloadRegular, SaveRegular } from '@fluentui/react-icons';
+import {Image, Text, Button, useId, Textarea, Input} from '@fluentui/react-components'
+import { ArrowLeftRegular, SaveRegular } from '@fluentui/react-icons';
 import { Row, Col } from 'react-simple-flex-grid';
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'

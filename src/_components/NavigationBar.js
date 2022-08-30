@@ -4,6 +4,7 @@ import { Pivot, PivotItem } from '@fluentui/react';
 import { Row, Col } from 'react-simple-flex-grid';
 import { Button, Menu, MenuTrigger, MenuPopover,MenuItem, MenuList, MenuButton} from "@fluentui/react-components";
 import { AutoFitHeight20Filled, DocumentAdd20Regular, PersonRegular } from '@fluentui/react-icons';
+import { AuthContext } from '../_contexts/AuthProvider';
 
 const getTabId = (itemKey) => {
   return `ShapeColorPivot_${itemKey}`;
@@ -26,9 +27,9 @@ function NavigationBar(props) {
     <>
       {mQuery.matches && (<Row style={{paddingRight:5, paddingLeft: 5}}>
             <Col style={{textAlign:"left", width:"50%"}}><NavigationBarContent  navigate={navigate}/></Col>
-            <Col style={{textAlign:"right", width:"50%"}}><AuthCommandBar navigate={navigate}/></Col>
+            <Col style={{textAlign:"right", width:"50%"}}><CommandBar navigate={navigate}/></Col>
         </Row>)}
-      {!mQuery.matches && (<div><AuthCommandBar navigate={navigate}/><br/><NavigationBarContent  navigate={navigate}/>
+      {!mQuery.matches && (<div><CommandBar navigate={navigate}/><br/><NavigationBarContent  navigate={navigate}/>
         </div>)}
     </>
   );
@@ -61,6 +62,14 @@ function NavigationBarContent(props) {
   );
 };
 
+function CommandBar(props) {
+  if (localStorage.getItem('authUser') != null ) {
+    console.log("Still have authUser")
+    return <AuthCommandBar navigate={props.navigate}/>
+  }
+  else return <NoAuthCommandBar navigate={props.navigate}/>
+}
+
 function NoAuthCommandBar(props) {
     const ButtonStyle = {textDecoration: 'none', paddingRight:"5px"}
     return (
@@ -71,7 +80,6 @@ function NoAuthCommandBar(props) {
                 Login to Boring Bulletin Site
             </Button>
             </NavLink>
-            
         </div>
       </>
     );

@@ -14,7 +14,7 @@ function PostCardList(props) {
             <div>
               {props.postList.map(postData =>
                 <Col xs={{ span: 12 }} sm={{ span: 6 }} md={{ span: 4 }}>
-                  <PostCard data={postData}></PostCard>
+                    <PostCard key={postData.id} data={postData}></PostCard>
                 </Col>
               )}
             </div>

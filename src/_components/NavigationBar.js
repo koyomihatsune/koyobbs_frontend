@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useNavigate, Link, NavLink, useLocation} from "react-router-dom";
 import { Pivot, PivotItem } from '@fluentui/react';
 import { Row, Col } from 'react-simple-flex-grid';
-import { Button, Menu, MenuTrigger, MenuPopover,MenuItem, MenuList, MenuButton} from "@fluentui/react-components";
-import { AutoFitHeight20Filled, DocumentAdd20Regular, PersonRegular } from '@fluentui/react-icons';
+import { Button} from "@fluentui/react-components";
+import { DocumentAdd20Regular } from '@fluentui/react-icons';
 import { AuthContext } from '../_contexts/AuthProvider';
 import { Logout } from './auth/Logout';
 import axios from 'axios';
@@ -37,7 +37,9 @@ function NavigationBar(props) {
           setIsLogin(true)
           localStorage.setItem("authUser", JSON.stringify(res.data.data))
           return true
-        } 
+        } if (res.data.error === "Token is not valid") {
+          Logout()
+        }
       })
   }
 
@@ -82,7 +84,7 @@ function NavigationBarContent(props) {
         getTabId={getTabId}
       >
         <PivotItem headerText="Bulletin Board" itemKey="/" />
-        <PivotItem headerText="Profile" itemKey="/me" />
+        <PivotItem headerText={localStorage.getItem('authUser')!=null ? JSON.parse(localStorage.getItem('authUser')).user.username : "Profile"} itemKey="/me" />
         <PivotItem headerText="Test" itemKey="/test" />
       </Pivot>
     </div>
@@ -122,9 +124,6 @@ function AuthCommandBar(props) {
                 Post something new
             </Button>
             </NavLink>
-            <Button icon={<PersonRegular/>}>
-                {localStorage.getItem('authUser')!=null ? JSON.parse(localStorage.getItem('authUser')).user.username : "Anonymous"}
-            </Button>
         </div>
       </>
     );

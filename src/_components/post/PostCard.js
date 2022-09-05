@@ -47,7 +47,7 @@ function PostCard(props) {
                     <div style= {{width: "100%"}}>
                     <LinesEllipsis
                       text= {props.data.title}
-                      maxLine='3'
+                      maxLine='1'
                       ellipsis='...'
                       trimRight
                       basedOn='letters' style={{fontSize: 15, fontWeight: "bold",marginBottom:"10px", width: "100%"}}

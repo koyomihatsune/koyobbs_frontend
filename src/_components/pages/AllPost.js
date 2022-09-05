@@ -1,11 +1,19 @@
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import ReactPaginate from 'react-paginate';
 import { useNavigate} from 'react-router-dom';
 import { API_LINK, HOSTNAME } from '../../Constants';
+import { AuthContext } from '../../_contexts/AuthProvider';
 import PostCardList from "../post/PostCardList";
 import Failure from '../status/Failure';
 import Loading from '../status/Loading';
 
+import { Button} from '@fluentui/react-components';
+import { Select, Option} from '@fluentui/react-components/unstable';
+import { Row, Col } from 'react-simple-flex-grid';
+import { ArrowPreviousRegular, ArrowNextRegular } from '@fluentui/react-icons';
 
 function AllPost() {
   const navigate = useNavigate();
@@ -25,14 +33,19 @@ function AllPost() {
     }
   ]);
   
+  const {page, setPage} = useContext(AuthContext)
   const [status, setStatus] = useState("Loading");
+  const [pageCount, setPageCount] = useState(1);
+  const [pageArray, setPageArray] = useState([1]);
 
   const getAllPost = async () => {
-    axios.get(HOSTNAME + API_LINK.ALLPOSTS).then(
+    axios.get(HOSTNAME + API_LINK.GETPOSTPAGINATION+"/"+page).then(
       (response) => {
         if (response.data.status === "Success") {
-          setPostListData(response.data.data); 
+          setPostListData(response.data.data.posts); 
           setStatus(response.data.status);
+          setPageCount(response.data.data.pageCount);
+          generatePageArray(response.data.data.pageCount);
         } else if (response.data.status === "Failed") {
           setStatus(response.data.error);
         }
@@ -40,12 +53,48 @@ function AllPost() {
     )
   }
 
+  const generatePageArray = (a) => {
+    let c = [];
+    for(let i = 1; i <= a; i++) c.push(i);
+    setPageArray(c);
+  }
+
+  const handlePageClick = (e) => {
+    setPage(e.target.selectedIndex+1)
+  }
+
   useEffect(() => {
     getAllPost()
-  }, []);
+  }, [page, pageCount]);
 
   if (status === "Success") {
-    return  (<PostCardList postList={postListData}/>)
+    return  (
+      <>
+        <PostCardList postList={postListData}/>
+        <div style= {{justifyContent: "center", display: "flex"}}>
+          <Row>
+          <Button appearance="primary" icon={<ArrowPreviousRegular/>}  onClick={()=>{setPage(page-1)}} disabled={page==1} >
+            Previous
+          </Button> 
+          <Select
+            defaultValue={"Page " + page.toString()}
+            value={"Page " + page.toString()}
+            onChange={handlePageClick}
+            style={{width:150, marginRight:5, marginLeft:5}}
+          >
+            {pageArray.map(page => 
+              <option key={page}>{"Page " + page.toString()}</option>
+            )}
+          </Select>   
+          <Button appearance="primary" icon={<ArrowNextRegular/>} iconPosition="after" onClick={()=>{setPage(page+1)}} disabled={page==pageCount}>
+            Next
+          </Button>
+          </Row>
+        </div>
+             
+      </>
+      
+    )
     } else if (status === "Loading") {
       return (<Loading/>)
     } else {

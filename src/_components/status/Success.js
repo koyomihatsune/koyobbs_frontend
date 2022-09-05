@@ -1,5 +1,5 @@
 import { Text } from '@fluentui/react-components';
-import { ErrorCircleFilled } from '@fluentui/react-icons';
+import { CheckmarkCircleRegular, ErrorCircleFilled } from '@fluentui/react-icons';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
@@ -7,19 +7,19 @@ import { API_LINK, HOSTNAME } from '../../Constants';
 import PostCardList from "../post/PostCardList";
 
 
-function Failure(props) {
+function Success(props) {
   
   return (
-      <div width="100">
+      <>
         <br/>
-            <ErrorCircleFilled style={{fontSize: 60, color:"red", marginBottom:30, marginTop:30}}></ErrorCircleFilled>
+            <CheckmarkCircleRegular style={{fontSize: 60, color:"green", marginBottom:30, marginTop:30}}></CheckmarkCircleRegular>
         <br/>
             <Text style={{fontSize:20, fontWeight:"bold"}}> 
-                {(props.message != null) ? props.message : "Failed to load" }
+                {(props.message != null) ? props.message : "Successfully" }
             </Text>
         <br/>
-      </div>
+      </>
     );
   }
 
-export default Failure;
+export default Success;

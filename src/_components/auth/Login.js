@@ -16,6 +16,7 @@ function Login() {
   const onChange = (e) => {
     setLogin({...login, [e.target.name]: e.target.value})
   }
+  
 
   const onSubmit = (e) => {
       axios.post(HOSTNAME + API_LINK.LOGIN, login, {
@@ -24,7 +25,7 @@ function Login() {
           }
           })
           .then((res) => {
-            console.log(res.data.data.token)
+            // console.log(res.data.data.token)
             if (res.data.status === "Success") {
               setAuth(res.data.data)
               setIsLogin(true)
@@ -51,7 +52,7 @@ function Login() {
                   <Input {...register("password")} appearance="underline" style={{width: "300px"}} type="password" placeholder="Password" onChange={onChange}/>
                   <br/><br/>
                   {errors.exampleRequired && <span>This field is required</span>}
-                  <Button type ="submit" appearance="primary" color="#c989e8" onPressed={{onSubmit}}>Login</Button>
+                  <Button type ="submit" appearance="primary" color="#c989e8" onPressed={{onSubmit}} disabled={login.email.length==0 || login.password.length==0}>Login</Button>
               </form>
               <br/><br/>
               <Text style={{color:"black", fontSize: "13px"}}>No account? <Link to="/register">Create one!</Link></Text><br/>

@@ -43,8 +43,10 @@ function App() {
                   <Route path="register" element={<Register />} />
                 </>}
                 <Route path="post/:postID" element={<Post/>} />
+                <Route path="test" element={<Test />} />
                 {isLogin && <Route path="new" element={ <CreatePost />}/>}
                 <Route path="*" element={<Navigate to="/" replace />} />
+                
               </Routes>
               </div>
             </div>   

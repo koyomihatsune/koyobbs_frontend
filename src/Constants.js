@@ -6,7 +6,8 @@ const API_LINK = {
     GETPOSTPAGINATION: "api/posts/page",
     GETPOSTBYID: "api/posts/post",
     USER: "api/user/",
-    ASSET_IMAGES: "assets/images/"
+    ASSET_IMAGES: "assets/images/",
+    CREATE_POST:"api/posts/post/create"
 }
 const HOSTNAME = "http://localhost:9000/"
 

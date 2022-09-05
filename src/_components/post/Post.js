@@ -88,7 +88,7 @@ function Post(props) {
                     {post.title}
                 </Text>
                 <br/><br/>
-                <Text style={{fontSize:20, lineHeight: 1.3}}>
+                <Text style={{fontSize:20, lineHeight: 1.3, "white-space": "pre-line"}} >
                     {post.content}
                 </Text>
                 <br/>

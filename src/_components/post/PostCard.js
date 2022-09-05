@@ -1,4 +1,4 @@
-import { React , useEffect } from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardFooter, CardPreview } from "@fluentui/react-components/unstable";
 import { Body1, Text , Caption1, Button, Image} from "@fluentui/react-components";
@@ -41,7 +41,7 @@ function PostCard(props) {
                   </div>
               </CardFooter>
               <CardPreview>
-                <Image src={props.data.thumbnail} style={{width:"100%", borderRadius: "0px", aspectRatio:"16 / 9",}}></Image>
+                <Image src={HOSTNAME+API_LINK.ASSET_IMAGES+props.data.thumbnail} style={{width:"100%", borderRadius: "0px", aspectRatio:"16 / 9", objectFit:"cover"}}></Image>
               </CardPreview>
               <CardFooter>
                     <div style= {{width: "100%"}}>

@@ -24,16 +24,17 @@ function Login() {
           }
           })
           .then((res) => {
-            console.log(isLogin)
+            console.log(res.data.data.token)
             if (res.data.status === "Success") {
               setAuth(res.data.data)
               setIsLogin(true)
               localStorage.setItem("authUser", JSON.stringify(res.data.data))
+              console.log("Set item")
               alert("Login successfully.")
               navigate("/")
             } else if (res.data.status === "Failed") {
               alert(res.data.error)
-            }
+            } else alert("System error.")
           })
   }
 

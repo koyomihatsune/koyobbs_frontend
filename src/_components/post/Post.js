@@ -56,7 +56,7 @@ function Post(props) {
       <div style={{textAlign:"left", marginTop:15}}>
           <div style={{backgroundColor: "white", color: "black", width: "100%", borderRadius: "8px", boxShadow: "1px 1px 11px #ccc" }}>
             <div>
-            <Image src={post.thumbnail} style={{width:"100%", borderRadius: "8px", aspectRatio:"16 / 6", position: 'relative',
+            <Image src={HOSTNAME+API_LINK.ASSET_IMAGES+post.thumbnail} style={{width:"100%", borderRadius: "8px", aspectRatio:"16 / 6", position: 'relative',
                 zIndex: '100'}} fit="cover"></Image>
             </div>
             <div align="start" style= {{boxSizing:"border-box", padding:30}}>

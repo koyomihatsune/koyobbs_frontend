@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { Routes, Route, useNavigate} from "react-router-dom";
+import { Routes, Route, useNavigate, Redirect, Navigate} from "react-router-dom";
 import { Pivot, PivotItem } from '@fluentui/react';
 import { Button, Menu, MenuTrigger, MenuPopover,MenuItem, MenuList, MenuButton} from "@fluentui/react-components";
 
@@ -13,12 +13,18 @@ import AllPost from './_components/pages/AllPost';
 import Post from './_components/post/Post';
 import NavigationBar from './_components/NavigationBar';
 import CreatePost from './_components/pages/CreatePost';
+import { AuthContext } from './_contexts/AuthProvider';
+import axios from 'axios';
+import { API_LINK, HOSTNAME } from './Constants';
+import { useContext } from 'react';
 
 const getTabId = (itemKey) => {
   return `ShapeColorPivot_${itemKey}`;
 };
 
 function App() {
+  const {setAuth, setIsLogin, isLogin, auth} = useContext(AuthContext)
+
   return (
     <div>
       <div className="App" style={{position: 'relative',
@@ -30,14 +36,15 @@ function App() {
               <div style={{maxWidth:"1000px",marginLeft: "auto", marginRight: "auto"}}>
               <NavigationBar/>
               <Routes>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
                 <Route path="/" element={<AllPost />} />
                 <Route path="me" element={<Profile />} />
-                <Route exact path="post/new" element={<CreatePost />} />
+                {!isLogin && <>
+                  <Route path="login" element={ <Login />}/>
+                  <Route path="register" element={<Register />} />
+                </>}
                 <Route path="post/:postID" element={<Post/>} />
-                
-                
+                {isLogin && <Route path="new" element={ <CreatePost />}/>}
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
               </div>
             </div>   

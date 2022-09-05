@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, Link, NavLink} from "react-router-dom";
+import { useNavigate, Link, NavLink, useLocation} from "react-router-dom";
 import { Pivot, PivotItem } from '@fluentui/react';
 import { Row, Col } from 'react-simple-flex-grid';
 import { Button, Menu, MenuTrigger, MenuPopover,MenuItem, MenuList, MenuButton} from "@fluentui/react-components";
@@ -15,6 +15,7 @@ const getTabId = (itemKey) => {
 };
 
 function NavigationBar(props) {
+  const location = useLocation();
   const navigate = useNavigate();
   const {setAuth, setIsLogin, isLogin, auth} = useContext(AuthContext)
   const [mQuery, setMQuery] = React.useState({
@@ -48,7 +49,8 @@ function NavigationBar(props) {
     return () => mediaQuery.removeListener(setMQuery);
   }, [isLogin]);
 
-  return (
+  if (location.pathname == "/login" || location.pathname =="/register") return(<><br></br></>);
+  else return (
     <>
       {mQuery.matches && (<Row style={{paddingRight:5, paddingLeft: 5}}>
             <Col style={{textAlign:"left", width:"50%"}}><NavigationBarContent  navigate={navigate}/></Col>
@@ -61,11 +63,12 @@ function NavigationBar(props) {
 }
 
 function NavigationBarContent(props) {
+  const location = useLocation();
   const [selectedKey, setSelectedKey] = React.useState("");
   const handleLinkClick = (item) => {
     if (item) {
-      setSelectedKey(item.props.itemKey);
-      props.navigate("/"+item.props.itemKey);
+      props.navigate(item.props.itemKey);
+      console.log(location)
     }
   };
 
@@ -73,14 +76,14 @@ function NavigationBarContent(props) {
     <>
       <div>
       <Pivot
-        selectedKey={selectedKey}
+        selectedKey={location.pathname}
         onLinkClick={handleLinkClick}
         headersOnly={true}
         getTabId={getTabId}
       >
-        <PivotItem headerText="Bulletin Board" itemKey="" />
-        <PivotItem headerText="Profile" itemKey="me" />
-        <PivotItem headerText="Test" itemKey="test" />
+        <PivotItem headerText="Bulletin Board" itemKey="/" />
+        <PivotItem headerText="Profile" itemKey="/me" />
+        <PivotItem headerText="Test" itemKey="/test" />
       </Pivot>
     </div>
     </>

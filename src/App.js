@@ -12,11 +12,10 @@ import Profile from './_components/pages/Profile';
 import AllPost from './_components/pages/AllPost';
 import Post from './_components/post/Post';
 import NavigationBar from './_components/NavigationBar';
-import CreatePost from './_components/pages/CreatePost';
 import { AuthContext } from './_contexts/AuthProvider';
-import axios from 'axios';
-import { API_LINK, HOSTNAME } from './Constants';
 import { useContext } from 'react';
+import EditPost from './_components/pages/EditPost';
+import CreatePost from './_components/pages/CreatePost';
 
 const getTabId = (itemKey) => {
   return `ShapeColorPivot_${itemKey}`;
@@ -43,14 +42,19 @@ function App() {
                   <Route path="register" element={<Register />} />
                 </>}
                 <Route path="post/:postID" element={<Post/>} />
+               
                 <Route path="test" element={<Test />} />
-                {isLogin && <Route path="new" element={ <CreatePost />}/>}
+                {isLogin && <>
+                  <Route path="new" element={<CreatePost/>} />
+                  <Route path="post/:postID/edit" element={<EditPost/>} />
+                </>
+                }
                 <Route path="*" element={<Navigate to="/" replace />} />
                 
               </Routes>
               </div>
             </div>   
-            <div style={{padding:400}}/>
+            <div style={{padding:200}}/>
       </div>
       <Background style={{position: 'relative',
                 zIndex: '2'}}/>

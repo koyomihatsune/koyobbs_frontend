@@ -119,7 +119,7 @@ function AuthCommandBar(props) {
     return (
       <>
         <div>
-            <NavLink to="/new" style={ButtonStyle}>
+            <NavLink to="/new" style={ButtonStyle} >
             <Button icon={<DocumentAdd20Regular/>} appearance="primary">
                 New Post
             </Button>

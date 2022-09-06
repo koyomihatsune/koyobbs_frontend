@@ -12,8 +12,7 @@ function Failure(props) {
   return (
       <div width="100" style= {{display:"flex", flexDirection:"column", alignItems:"center"}}>
         <br/>
-            <ErrorCircleFilled style={{fontSize: 60, color:"red", marginBottom:30, marginTop:30}}></ErrorCircleFilled>
-        <br/>
+            <ErrorCircleFilled style={{fontSize: 60, color:"#bc2f32", marginBottom:30, marginTop:30}}></ErrorCircleFilled>
             <Text style={{fontSize:20, fontWeight:"bold"}}> 
                 {(props.message != null) ? props.message : "Failed to load" }
             </Text>

@@ -5,14 +5,14 @@ import "react-simple-flex-grid/lib/main.css";
 import Failure from '../status/Failure';
 import PostForm from '../post/PostForm';
 
-function CreatePost(props) {
+function EditPost(props) {
   const navigate = useNavigate();
   
   return (
       <>
-          <PostForm status="Create"></PostForm>
+          <PostForm status="Edit"></PostForm>
       </>
     );
   }
 
-export default CreatePost;
+export default EditPost;

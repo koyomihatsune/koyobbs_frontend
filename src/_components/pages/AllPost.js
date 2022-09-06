@@ -98,7 +98,7 @@ function AllPost() {
     } else if (status === "Loading") {
       return (<Loading/>)
     } else {
-      return (<Failure error={status}/>)
+      return (<Failure message={status}/>)
     }
   }
 

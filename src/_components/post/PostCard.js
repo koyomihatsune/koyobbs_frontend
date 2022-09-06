@@ -57,7 +57,7 @@ function PostCard(props) {
                       maxLine='3'
                       ellipsis='...'
                       trimRight
-                      basedOn='letters' style={{fontSize: 14, width: "100%"}}
+                      basedOn='letters' style={{fontSize: 14, width: "100%", height:"60px"}}
                     />
                     </div>
               </CardFooter>

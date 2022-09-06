@@ -10,7 +10,7 @@ import PostCardList from "../post/PostCardList";
 function Success(props) {
   
   return (
-      <>
+      <div width="100" style= {{display:"flex", flexDirection:"column", alignItems:"center"}}>
         <br/>
             <CheckmarkCircleRegular style={{fontSize: 60, color:"green", marginBottom:30, marginTop:30}}></CheckmarkCircleRegular>
         <br/>
@@ -18,7 +18,7 @@ function Success(props) {
                 {(props.message != null) ? props.message : "Successfully" }
             </Text>
         <br/>
-      </>
+      </div>
     );
   }
 

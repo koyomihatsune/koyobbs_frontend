@@ -47,10 +47,9 @@ function CreatePost(props) {
           setStatus("Failed")
           setMessage(res.data.error)
         } else alert("System error.")
-        
       }).catch(err => {
         setStatus("Failed")
-        setMessage(err.response.data.statusText)
+        setMessage(err.response.statusText)
     })
   }
 
@@ -104,14 +103,15 @@ function CreatePost(props) {
                       <Col style={{textAlign:"right", width:"50%"}}>
                           <Image src="https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg" style={{width: 40, height:40, float:"right", objectFit:"cover", borderRadius:"50%", marginLeft:15}}></Image>
                           <div>
+                            <Text>Author</Text>
                             <ResponsiveEllipsis
                             text={auth.user.username}
                             maxLine='1'
                             ellipsis='...'
                             trimRight
                             basedOn='letters' style={{fontSize: 15, fontWeight: "bold"}}
-                          />
-                            <Text>Just now</Text>
+                            />
+                            
                           </div>
                       </Col>
                     </Row>
@@ -121,15 +121,14 @@ function CreatePost(props) {
                 {(status==="Loading") && <>
                   <Loading/>
                 </>}
-                {(status==="Success") && <div style= {{justifyContent: "center"}}>
+                {(status==="Success") && <div style= {{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <Success message={message}/>
                     <br/>
                     <Button color="#c989e8" icon={<ArrowLeftRegular />}
                     onClick={() => navigate("/")}>Back to Board</Button>
                 </div>}   
-                {(status==="Failed") && <div style= {{justifyContent: "center", display:"contnets"}}>
+                {(status==="Failed") && <div style= {{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <Failure message={message}/>
-                    <br/>
                     <Button color="#c989e8" icon={<ArrowLeftRegular />}
                     onClick={() => setStatus("Inputting")}>Back to editing</Button><br/>
                     <Button color="#c989e8" icon={<DeleteRegular />}

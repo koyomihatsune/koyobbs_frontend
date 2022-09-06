@@ -18,7 +18,7 @@ function Post(props) {
   const navigate = useNavigate();
   const params = useParams();
   const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
-  const {auth} = useContext(AuthContext)
+  const {auth, isLogin} = useContext(AuthContext)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const [post, setPost] = useState({
@@ -93,7 +93,8 @@ function Post(props) {
                         <Button icon={<ArrowLeftRegular />} onClick={() => navigate("/")} style = {toolbarStyle}>
                             Back to Board
                         </Button>
-                        {post.author.id===auth.user.id &&
+                        { isLogin && <>
+                          {post.author.id===auth.user.id &&
                           <>
                               <Button icon={<EditRegular />} onClick={() => {navigate("/post/"+post.id+"/edit", {post:post})}} style = {{marginRight:10, marginBottom:10, color:"#5c2e91"}}>
                                   Edit
@@ -102,6 +103,8 @@ function Post(props) {
                                   Delete
                               </Button>
                           </>
+                        }
+                        </>
                         }
                         <Button icon={<ArrowDownloadRegular />} onClick={() => navigate("/")} style = {{marginRight:10, marginBottom:10, color:"#0078d4"}}>
                             Download as CSV

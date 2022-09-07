@@ -79,6 +79,26 @@ function Post(props) {
     )
   }
 
+  const onRequestDownload = async () => {
+    axios.get(HOSTNAME + API_LINK.GETPOSTBYID + "/" + params.postID+"/export").then(
+      (response) => {
+        console.log(response)
+        if (response.data.status === "Success") {
+          const url = window.URL
+          .createObjectURL(new Blob([response.data.message]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', "bbs_00000"+post.id+".csv")
+                document.body.appendChild(link);
+                link.click();
+        } else if (response.data.status === "Failed") {
+          alert(response.data.error)
+        }
+      }
+    )
+  }
+
+
   if (status == "Success") {
     return (   
       <div>
@@ -106,7 +126,7 @@ function Post(props) {
                         }
                         </>
                         }
-                        <Button icon={<ArrowDownloadRegular />} onClick={() => navigate("/")} style = {{marginRight:10, marginBottom:10, color:"#0078d4"}}>
+                        <Button icon={<ArrowDownloadRegular />} onClick={() => onRequestDownload()} style = {{marginRight:10, marginBottom:10, color:"#0078d4"}}>
                             Download as CSV
                         </Button>
                     </Col>
@@ -152,6 +172,8 @@ function Post(props) {
     </>)
   } 
 } 
+
+
   
   const toolbarStyle = {
     marginRight:10, 

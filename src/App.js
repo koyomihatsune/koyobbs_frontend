@@ -54,7 +54,9 @@ function App() {
               </Routes>
               </div>
             </div>   
-            <div style={{padding:200}}/>
+            <div style={{padding:150}}>
+                Made by @koyomihatsune
+            </div>
       </div>
       <Background style={{position: 'relative',
                 zIndex: '2'}}/>

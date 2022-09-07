@@ -85,7 +85,7 @@ function NavigationBarContent(props) {
       >
         <PivotItem headerText="Bulletin Board" itemKey="/" />
         <PivotItem headerText={localStorage.getItem('authUser')!=null ? JSON.parse(localStorage.getItem('authUser')).user.username : "Profile"} itemKey="/me" />
-        <PivotItem headerText="Test" itemKey="/test" />
+        {/* <PivotItem headerText="Test" itemKey="/test" /> */}
       </Pivot>
     </div>
     </>

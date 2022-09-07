@@ -7,7 +7,8 @@ const API_LINK = {
     GETPOSTBYID: "api/posts/post",
     USER: "api/user/",
     ASSET_IMAGES: "assets/images/",
-    CREATE_POST:"api/posts/post/create"
+    CREATE_POST:"api/posts/post/create",
+    EXPORTED_CSV:"assets/csvs/"
 }
 const HOSTNAME = "http://localhost:9000/"
 

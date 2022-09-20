@@ -28,9 +28,9 @@ function App() {
     <div>
       <div className="App" style={{position: 'relative',
                 zIndex: '1', justifyContent: "center"}} >
-            <h1>Boring Bulletin Site</h1>
-            <h2>Trang Tin tức Nhạt nhẽo</h2>
-            <h2>ボリング・ブレーチン・サイト</h2>
+            <h1>Bulletin Board System</h1>
+            <h2>Trang Tin tức</h2>
+          
             <div >
               <div style={{maxWidth:"1000px",marginLeft: "auto", marginRight: "auto"}}>
               <NavigationBar/>

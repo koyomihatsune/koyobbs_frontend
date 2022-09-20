@@ -42,10 +42,10 @@ function AllPost() {
     axios.get(HOSTNAME + API_LINK.GETPOSTPAGINATION+"/"+page).then(
       (response) => {
         if (response.data.status === "Success") {
-          setPostListData(response.data.data.posts); 
+          setPostListData(response.data.data.items); 
           setStatus(response.data.status);
-          setPageCount(response.data.data.pageCount);
-          generatePageArray(response.data.data.pageCount);
+          setPageCount(response.data.data.total);
+          generatePageArray(response.data.data.total);
         } else if (response.data.status === "Failed") {
           setStatus(response.data.error);
         }

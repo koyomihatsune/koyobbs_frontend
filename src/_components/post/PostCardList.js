@@ -12,7 +12,7 @@ function PostCardList(props) {
       <>
           <Row gutter={40} style={{minHeight: "200px"}}>
             <div>
-              {props.postList.map(postData =>
+              {props.postList && props.postList.map(postData =>
                 <Col xs={{ span: 12 }} sm={{ span: 6 }} md={{ span: 4 }} >
                     <PostCard key={postData.id} data={postData}></PostCard>
                 </Col>

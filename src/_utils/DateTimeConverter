@@ -1,0 +1,7 @@
+import {react} from 'react';
+
+function timeToNFormat(jodadate) {
+    return jodadate.substring(11, 15) + " " + jodadate.substring(0, 13);
+};
+
+export default timeToNFormat

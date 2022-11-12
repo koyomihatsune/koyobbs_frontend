@@ -119,7 +119,7 @@ function Post(props) {
                               <Button icon={<EditRegular />} onClick={() => {navigate("/post/"+post.id+"/edit", {post:post})}} style = {{marginRight:10, marginBottom:10, color:"#5c2e91"}}>
                                   Edit
                               </Button>
-                              <Button  icon={<DeleteRegular/>} onClick={() => setOpenDeleteDialog(true)} style = {{marginRight:10, marginBottom:10, color:"#bc2f32"}}>
+                              <Button  icon={<DeleteRegular/>} onClick={() => onDeletePost()} style = {{marginRight:10, marginBottom:10, color:"#bc2f32"}}>
                                   Delete
                               </Button>
                           </>

@@ -120,68 +120,159 @@ function PostForm(props) {
   }
 
   return (
-      <>
-        <div style={boxStyle}>
-            <div align="start" style= {{boxSizing:"border-box", padding:30}}>
-                {(status==="Create" || status==="Edit") && <>
-                  <Text style={titleStyle}> {isEditing? "Edit Post":"New Post"} </Text>
-                  <div style={{paddingTop:30, position: 'relative'}}>
-                  <Tooltip
-                    content={(photo)?"Click to change photo" :"Click to upload photo"}
-                    relationship="label" showDelay="0" withArrow="true"
+    <>
+      <div style={boxStyle}>
+        <div align="start" style={{ boxSizing: "border-box", padding: 30 }}>
+          {(status === "Create" || status === "Edit") && (
+            <>
+              <Text style={titleStyle}>
+                {" "}
+                {isEditing ? "Edit Post" : "New Post"}{" "}
+              </Text>
+              <div style={{ paddingTop: 30, position: "relative" }}>
+                <Tooltip
+                  content={
+                    photo ? "Click to change photo" : "Click to upload photo"
+                  }
+                  relationship="label"
+                  showDelay="0"
+                  withArrow="true"
+                >
+                  <Image
+                    src={
+                      photo
+                        ? photo
+                        : "https://www.peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"
+                    }
+                    style={thumbnailStyle}
+                    fit="cover"
+                    onClick={() => {
+                      document.getElementById("thumbnailUploader").click();
+                    }}
+                  />
+                </Tooltip>
+              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                  {...register("title")}
+                  id="titleField"
+                  placeholder="Type your title here..."
+                  value={form.title}
+                  style={{ width: "100%", marginBottom: 15 }}
+                  onChange={onChange}
+                  size="large"
+                />
+                <Textarea
+                  {...register("content")}
+                  id="contentField"
+                  placeholder="Type your content here..."
+                  value={form.content}
+                  textarea={{ className: styles.textarea }}
+                  style={{ width: "100%" }}
+                  onChange={onChange}
+                  size="large"
+                />
+                <input
+                  {...register("thumbnail")}
+                  id="thumbnailUploader"
+                  type="file"
+                  style={{ visibility: "hidden" }}
+                  onChange={onPhotoChange}
+                ></input>
+              </form>
+              <Row style={{ marginTop: 20 }}>
+                <Col style={{ textAlign: "left", width: "50%" }}>
+                  <Button
+                    icon={<DeleteRegular />}
+                    onClick={() => {
+                      navigate("/");
+                      console.log("Back");
+                    }
+                    }
+                    style={{ marginRight: 10, color: "red" }}
                   >
-                    <Image src={(photo)?photo:"https://www.peacemakersnetwork.org/wp-content/uploads/2019/09/placeholder.jpg"} style={thumbnailStyle} fit="cover" 
-                                        onClick={() => {document.getElementById("thumbnailUploader").click();}}
-                    />
-                  </Tooltip>
+                    Dismiss post
+                  </Button>
+                  {status == "Edit" && (
+                    <Button
+                      icon={<ArrowCounterclockwiseRegular />}
+                      onClick={() => getPost()}
+                      style={{ marginRight: 10 }}
+                    >
+                      Reset
+                    </Button>
+                  )}
+                  <Button
+                    appearance="primary"
+                    icon={<SaveRegular />}
+                    onClick={() => onSubmit()}
+                    disabled={!photo || !form.title || !form.content}
+                  >
+                    {isEditing ? "Save post" : "Submit"}
+                  </Button>
+                </Col>
+                <Col style={{ textAlign: "right", width: "50%" }}>
+                  <Image
+                    src="https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg"
+                    style={avatarStyle}
+                  ></Image>
+                  <div>
+                    <Text>Author</Text>
+                    <br />
+                    <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+                      {auth.user.username}
+                    </Text>
                   </div>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input {...register("title")} id="titleField" placeholder="Type your title here..." value={form.title} style={{width:"100%", marginBottom:15}} onChange={onChange} size="large"/>
-                    <Textarea {...register("content")} id="contentField" placeholder="Type your content here..." value={form.content} textarea={{className: styles.textarea}} style={{width:"100%"}} onChange={onChange} size="large"/>
-                    <input {...register("thumbnail")} id="thumbnailUploader" type="file" style={{visibility:"hidden"}} onChange={onPhotoChange}></input>
-                  </form>
-                    <Row style={{marginTop:20}}>
-                      <Col style={{textAlign:"left", width:"50%"}}>
-                          <Button icon={<DeleteRegular />} onClick={() => setOpenCancelDialog(true)} style = {{marginRight:10, color:"red"}}>
-                              Dismiss post
-                          </Button>
-                          {status=="Edit" && <Button icon={<ArrowCounterclockwiseRegular/>} onClick={() => getPost()} style = {{marginRight:10}}>Reset</Button>}
-                          <Button appearance='primary' icon={<SaveRegular />} onClick={()=> setOpenSubmitDialog(true)} disabled={!photo || !form.title || !form.content}>
-                                {isEditing?"Save post":"Submit"}
-                          </Button> 
-                      </Col>
-                      <Col style={{textAlign:"right", width:"50%"}}>
-                          <Image src="https://i0.wp.com/news.qoo-app.com/en/wp-content/uploads/sites/3/2020/03/20031004000866.jpg" style={avatarStyle}></Image>
-                          <div>
-                            <Text>Author</Text>
-                            <br/>
-                            <Text style={{fontSize: 15, fontWeight: "bold"}} >{auth.user.username}</Text>
-                          </div>
-                      </Col>
-                    </Row>
-                </>
-                }
-                {(status==="Loading") &&<Loading/>}
-                <div style= {{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                {(status==="Success") &&  <>
-                    <Success message={message}/>
-                    <br/>
-                    <Button color="#c989e8" icon={<ArrowLeftRegular />}
-                    onClick={() => navigate("/")}>Back to Board</Button>
-                    </>
-                }   
-                {(status==="Failed") && <>
-                    <Failure message={message}/>
-                    <Button color="#c989e8" icon={<ArrowLeftRegular />}
-                    onClick={() => setStatus(isEditing ? "Edit": "Create")}>Back to editing</Button><br/>
-                    <Button style={{backgroundColor:"#bc2f32"}} appearance="primary" icon={<DeleteRegular />}
-                    onClick={() => setOpenCancelDialog(true)}>Dismiss post</Button>
-                </>}    
-                </div>
-                      
-            </div>
+                </Col>
+              </Row>
+            </>
+          )}
+          {status === "Loading" && <Loading />}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {status === "Success" && (
+              <>
+                <Success message={message} />
+                <br />
+                <Button
+                  color="#c989e8"
+                  icon={<ArrowLeftRegular />}
+                  onClick={() => navigate("/")}
+                >
+                  Back to Board
+                </Button>
+              </>
+            )}
+            {status === "Failed" && (
+              <>
+                <Failure message={message} />
+                <Button
+                  color="#c989e8"
+                  icon={<ArrowLeftRegular />}
+                  onClick={() => setStatus(isEditing ? "Edit" : "Create")}
+                >
+                  Back to editing
+                </Button>
+                <br />
+                <Button
+                  style={{ backgroundColor: "#bc2f32" }}
+                  appearance="primary"
+                  icon={<DeleteRegular />}
+                  onClick={() => setOpenCancelDialog(true)}
+                >
+                  Dismiss post
+                </Button>
+              </>
+            )}
           </div>
-          {/* <CustomDialog 
+        </div>
+      </div>
+      {/* <CustomDialog 
             open={openCancelDialog} 
             handleClose={()=> setOpenCancelDialog(false)} 
             onSubmit={isEditing?()=> navigate(-1): ()=> navigate("/")}
@@ -190,7 +281,7 @@ function PostForm(props) {
             dialogSubmit={"Dismiss"}
             alert={true}
           ></CustomDialog> */}
-          {/* <CustomDialog 
+      {/* <CustomDialog 
             open={openSubmitDialog} 
             handleClose={()=> setOpenSubmitDialog(false)} 
             onSubmit={onSubmit}
@@ -199,8 +290,8 @@ function PostForm(props) {
             dialogSubmit={isEditing?"Save":"Submit"}
             alert={false}
           ></CustomDialog> */}
-      </>
-    );
+    </>
+  );
   }
 
 const avatarStyle={width: 40, height:40, float:"right", objectFit:"cover", borderRadius:"50%", marginLeft:15}

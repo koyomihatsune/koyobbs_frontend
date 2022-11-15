@@ -8,5 +8,7 @@ export default defineConfig({
       bundler: "vite",
     },
   },
-  fileServerFolder: "src",
+  e2e: {
+
+  }
 });

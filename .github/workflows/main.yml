@@ -17,6 +17,7 @@ jobs:
           # we have already installed everything
           install: false
           working-directory: cypress/e2e
+          browser: headless
 
       - name: Run Component tests 🧪
         uses: cypress-io/github-action@v4

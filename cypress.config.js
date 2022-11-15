@@ -1,16 +1,12 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from "cypress";
 
 export default defineConfig({
-  "component": {
-    "devServer": {
-      "framework": "react",
-      "bundler": "vite"
-    }
+  projectId: "f26sr9",
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+    },
   },
-
-  "fileServerFolder": 'src',
-
-  e2e: {
-    // baseUrl: 'http://localhost:5173'
-  }
-})
+  fileServerFolder: "src",
+});

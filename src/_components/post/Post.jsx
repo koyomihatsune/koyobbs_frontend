@@ -67,6 +67,7 @@ function Post(props) {
           "Authorization": "Bearer "+ auth.token
       }}).then(
       (response) => {
+        
         if (response.data.status === "Success") {
           setStatus("Deleted");
           setMessage(response.data.message)

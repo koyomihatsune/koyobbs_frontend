@@ -44,8 +44,8 @@ function AllPost() {
         if (response.data.status === "Success") {
           setPostListData(response.data.data.items); 
           setStatus(response.data.status);
-          setPageCount(response.data.data.total);
-          generatePageArray(response.data.data.total);
+          setPageCount(response.data.data.total/10 + (response.data.data.total%10==0 ? 0 : 1));
+          generatePageArray(response.data.data.total/10+ (response.data.data.total%10==0 ? 0 : 1));
         } else if (response.data.status === "Failed") {
           setStatus(response.data.error);
         }
@@ -86,7 +86,7 @@ function AllPost() {
               <option key={page}>{"Page " + page.toString()}</option>
             )}
           </Select>   
-          <Button appearance="primary" icon={<ArrowNextRegular/>} iconPosition="after" onClick={()=>{setPage(page+1)}} disabled={page==pageCount}>
+          <Button appearance="primary" icon={<ArrowNextRegular/>} iconPosition="after" onClick={()=>{setPage(page+1)}} disabled={page==(pageCount/10+1)}>
             Next
           </Button>
           </Row>

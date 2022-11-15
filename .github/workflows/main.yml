@@ -11,14 +11,6 @@ jobs:
       - name: Install dependencies
         run: npm install -f
 
-      - name: Run E2E tests 🧪
-        uses: cypress-io/github-action@v4
-        with:
-          # we have already installed everything
-          install: false
-          working-directory: cypress/e2e
-          browser: headless
-
       - name: Run Component tests 🧪
         uses: cypress-io/github-action@v4
         with:
@@ -26,3 +18,7 @@ jobs:
           install: false
           # to run component tests we need to use "component: true"
           component: true
+          record: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: 9efed4c6-9640-4936-98ec-00a6330252d8

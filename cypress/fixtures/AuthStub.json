@@ -1,0 +1,11 @@
+{
+  "status": "Success",
+  "data": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njk0MDIzMDMsImlhdCI6MTY2ODUwMjMwMzMyOCwiaWQiOiIzIiwiZW1haWwiOiJSYW5kb21QZXJzb24xQGdtYWlsLmNvbSJ9.aN3Bcy1amVyhgo2CfY-lBa-tYB2feKiaLmMs_2peFG8",
+    "user": {
+      "id": "3",
+      "email": "RandomPerson1@gmail.com",
+      "username": "RandomPerson1"
+    }
+  }
+}

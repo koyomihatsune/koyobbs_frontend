@@ -7,5 +7,10 @@ export default defineConfig({
       "bundler": "vite"
     }
   },
+
   "fileServerFolder": 'src',
+
+  e2e: {
+    // baseUrl: 'http://localhost:5173'
+  }
 })

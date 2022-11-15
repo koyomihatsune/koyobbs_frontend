@@ -1,0 +1,19 @@
+{
+  "logged_in" :{
+    "auth": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjkyNDkwNjEsImlhdCI6MTY2ODM0OTA2MTcxNSwiaWQiOiI1IiwiZW1haWwiOiJ0cmFueHVhbmJhY2gxQGdtYWlsLmNvbSJ9.eh_tgn9O0U-Rl4hRGl6ntKQ9K33becoD3bJ_SskyUYw",
+        "user": {
+          "id": "5",
+          "email": "tranxuanbach1@gmail.com",
+          "username": "bach2001"
+        }
+    },
+    "isLogin": true 
+  },
+  "not_logged_in": {
+    "auth": {
+
+    },
+    "isLogin": false
+  }
+}

@@ -53,7 +53,8 @@ function PostForm(props) {
           setData(response.data.data)
           setStatus("Edit")            
         } else if (response.data.status === "Failed") {
-          setStatus(response.data.error);
+          setStatus(response.data.status);
+          setMessage(response.data.error)
         }
       }
     )
@@ -94,7 +95,7 @@ function PostForm(props) {
         if (res.data.status === "Success") {
           setStatus("Success")
           setMessage(res.data.message)
-        } else if (res.data.status === "Failed") {
+        } else if (res.data.status == "Failed") {
           setStatus("Failed")
           setMessage(res.data.error)
         } else {
@@ -112,7 +113,7 @@ function PostForm(props) {
   }
 
   const onPhotoChange = (e) => {
-    if(e.target.files.length !== 0){
+    if(e.target.files.length !== 0) {
       setPhoto(URL.createObjectURL(e.target.files[0]))
       setForm({...form, thumbnail: e.target.files[0]})
       console.log(form)
@@ -248,6 +249,7 @@ function PostForm(props) {
                 </Button>
               </>
             )}
+            
             {status === "Failed" && (
               <>
                 <Failure message={message} />

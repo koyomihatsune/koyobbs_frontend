@@ -1,0 +1,18 @@
+{
+    "get_post_response": {
+        "status": "Success",
+        "data": {
+            "id": "1",
+            "title": "This is sample post",
+            "thumbnail": "normal_post_thumbnail.png",
+            "content": "This is sample post. This is sample post",
+            "created_at": "2022-11-14T14:21:21.000Z",
+            "updated_at": "2022-11-14T14:21:21.000Z",
+            "author": {
+                "id": "1",
+                "email": "tranxuanbach1@gmail.com",
+                "username": "miaht95"
+            }
+        }
+    }
+}

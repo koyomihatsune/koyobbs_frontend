@@ -5,6 +5,7 @@ import PostCardList from './PostCardList'
 describe('Test PostCardList', () => {
   let stub = {}
   let authStub = {}
+  
   before(() => {
       cy.fixture('component/PostCardListStub').then(postCard => {
           stub = postCard
@@ -14,12 +15,12 @@ describe('Test PostCardList', () => {
         authStub = authJson
         cy.log(authStub)
     })
-      
+    cy.viewport(1200, 900)
   })
   beforeEach(() => {
     cy.intercept('GET', '/assets/images/normal_post_thumbnail.png', {fixture: 'images/normal_post_thumbnail.png'}).as('getNormalThumbnail')
   })
-  it('Test PostForm Loading', () => {
+  it('Count PostCardListItem 1 page', () => {
     cy.intercept({
         url: '/api/posts/post/*',
         middleware: true,
@@ -30,71 +31,32 @@ describe('Test PostCardList', () => {
         })
       }).as('getNormalPostResponse')
     cy.mount(
-        <MemoryRouter initialEntries={["/post/2/edit"]}>
-        <Routes>
-            <Route path={'/post/:postID/edit'} element={
-                <AuthContext.Provider value={authStub['logged_in']}>
-                    <PostForm status='Edit'></PostForm>
-                </AuthContext.Provider>
-            }></Route>
-        </Routes>
+        <MemoryRouter initialEntries={["/"]}>
+        <PostCardList postList={stub['one_page']}></PostCardList>
         
       </MemoryRouter>
     )
-    cy.get('.fui-Spinner__spinner').should('exist')
+    cy.get('.fui-Card').should('have.length', 8)
     
   })
 
-  it('Test PostForm Normal', () => {
-    cy.intercept('GET', '/api/posts/post/2', stub.get_post_response).as('getNormalPostResponse')
-    cy.mount(
-        <MemoryRouter initialEntries={["/post/2/edit"]}>
-        <Routes>
-            <Route path={'/post/:postID/edit'} element={
-                <AuthContext.Provider value={authStub['logged_in']}>
-                    <PostForm status='Edit'></PostForm>
-                </AuthContext.Provider>
-            }></Route>
-        </Routes>
-        
-      </MemoryRouter>
-    )
-    cy.wait('@getNormalPostResponse')
-    cy.get('#titleField').invoke('val').then(val => {
-        expect(val).equal('This is sample post')
-    })
-    cy.get('#contentField').invoke('val').then(val => {
-        expect(val).equal('This is sample post. This is sample post')
-    })
-  })
-
-  it('Test PostForm Get Post Fail', () => {
-    cy.intercept('GET', '/assets/images/normal_post_thumbnail.png', {fixture: 'images/normal_post_thumbnail.png'}).as('getNormalThumbnail')
+  it('Count PostCardListItem 2 pages', () => {
     cy.intercept({
-        url: '/api/posts/post/2',
+        url: '/api/posts/post/*',
         middleware: true,
       },
       (req) => {
         req.reply({
-            body: {
-                "status": "Failed",
-                "error": "Not Found"
-            }
+            delay: 100000
         })
       }).as('getNormalPostResponse')
     cy.mount(
-        <MemoryRouter initialEntries={["/post/2/edit"]}>
-          <Routes>
-              <Route path={'/post/:postID/edit'} element={
-                  <AuthContext.Provider value={authStub['logged_in']}>
-                      <PostForm status='Edit'></PostForm>
-                  </AuthContext.Provider>
-              }></Route>
-          </Routes>
-        </MemoryRouter>
+        <MemoryRouter initialEntries={["/"]}>
+        <PostCardList postList={stub['two_pages']}></PostCardList>
+        
+      </MemoryRouter>
     )
-    cy.wait('@getNormalPostResponse')
-    // cy.wait('@getNormalThumbnail')
-    cy.get('.fui-Text').should('contains.text', 'Not Found')
+    cy.get('.fui-Card').should('have.length', 9)
+    
   })
 })

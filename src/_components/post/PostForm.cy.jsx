@@ -14,61 +14,79 @@ describe('Test PostForm', () => {
         authStub = authJson
         cy.log(authStub)
     })
-      
-  })
-  beforeEach(() => {
-    cy.intercept('GET', '/assets/images/normal_post_thumbnail.png', {fixture: 'images/normal_post_thumbnail.png'}).as('getNormalThumbnail')
-  })
-  it('Test PostForm Loading', () => {
-    cy.intercept({
-        url: '/api/posts/post/2',
-        middleware: true,
-      },
-      (req) => {
-        req.reply({
-            delay: 100000
-        })
-      }).as('getNormalPostResponse')
-    cy.mount(
-        <MemoryRouter initialEntries={["/post/2/edit"]}>
-        <Routes>
-            <Route path={'/post/:postID/edit'} element={
-                <AuthContext.Provider value={authStub['logged_in']}>
-                    <PostForm status='Edit'></PostForm>
-                </AuthContext.Provider>
-            }></Route>
-        </Routes>
-        
-      </MemoryRouter>
-    )
-    cy.get('.fui-Spinner__spinner').should('exist')
-    
+      cy.intercept("GET", "/assets/images/normal_post_thumbnail.png", {
+        fixture: "images/normal_post_thumbnail.png",
+      }).as("getNormalThumbnail");
   })
 
-  it('Test PostForm Normal', () => {
-    cy.intercept('GET', '/api/posts/post/2', stub.get_post_response).as('getNormalPostResponse')
-    cy.mount(
-        <MemoryRouter initialEntries={["/post/2/edit"]}>
-        <Routes>
-            <Route path={'/post/:postID/edit'} element={
-                <AuthContext.Provider value={authStub['logged_in']}>
-                    <PostForm status='Edit'></PostForm>
-                </AuthContext.Provider>
-            }></Route>
-        </Routes>
+   it("Test PostForm Normal", () => {
+     cy.intercept(
+       {
+         url: "/api/posts/post/2",
+         middleware: true,
+       },
+       (req) => {
+         req.reply({
+           body: stub["get_post_response"],
+         });
+       }
+     ).as("getNormalPostResponse");
+     cy.mount(
+       <MemoryRouter initialEntries={["/post/2/edit"]}>
+         <Routes>
+           <Route
+             path={"/post/:postID/edit"}
+             element={
+               <AuthContext.Provider value={authStub["logged_in"]}>
+                 <PostForm status="Edit"></PostForm>
+               </AuthContext.Provider>
+             }
+           ></Route>
+         </Routes>
+       </MemoryRouter>
+     );
+     cy.wait("@getNormalPostResponse");
+     cy.get("#titleField")
+       .invoke("val")
+       .then((val) => {
+         expect(val).equal("This is sample post");
+       });
+     cy.get("#contentField")
+       .invoke("val")
+       .then((val) => {
+         expect(val).equal("This is sample post. This is sample post");
+       });
+     // cy.get('[style="padding-top: 30px; position: relative;"] > .fui-Image').trigger('mouseenter')
+     // cy.get('#tooltip-5').should('exist')
+   });
+
+  // it('Test PostForm Loading', () => {
+  //   cy.intercept({
+  //       url: '/api/posts/post/2',
+  //       middleware: true,
+  //     },
+  //     (req) => {
+  //       req.reply({
+  //           delay: 100000
+  //       })
+  //     }).as('getNormalPostResponse')
+  //   cy.mount(
+  //       <MemoryRouter initialEntries={["/post/2/edit"]}>
+  //       <Routes>
+  //           <Route path={'/post/:postID/edit'} element={
+  //               <AuthContext.Provider value={authStub['logged_in']}>
+  //                   <PostForm status='Edit'></PostForm>
+  //               </AuthContext.Provider>
+  //           }></Route>
+  //       </Routes>
         
-      </MemoryRouter>
-    )
-    cy.wait('@getNormalPostResponse')
-    cy.get('#titleField').invoke('val').then(val => {
-        expect(val).equal('This is sample post')
-    })
-    cy.get('#contentField').invoke('val').then(val => {
-        expect(val).equal('This is sample post. This is sample post')
-    })
-    // cy.get('[style="padding-top: 30px; position: relative;"] > .fui-Image').trigger('mouseenter')
-    // cy.get('#tooltip-5').should('exist')
-  })
+  //     </MemoryRouter>
+  //   )
+  //   cy.get('.fui-Spinner__spinner').should('exist')
+    
+  // })
+
+ 
 
   it('Test PostForm Get Post Fail', () => {
     cy.intercept('GET', '/assets/images/normal_post_thumbnail.png', {fixture: 'images/normal_post_thumbnail.png'}).as('getNormalThumbnail')
@@ -83,7 +101,7 @@ describe('Test PostForm', () => {
                 "error": "Not Found"
             }
         })
-      }).as('getNormalPostResponse')
+      }).as('getNormalPostResponse2')
     cy.mount(
         <MemoryRouter initialEntries={["/post/2/edit"]}>
           <Routes>
@@ -95,7 +113,7 @@ describe('Test PostForm', () => {
           </Routes>
         </MemoryRouter>
     )
-    cy.wait('@getNormalPostResponse')
+    cy.wait('@getNormalPostResponse2')
     // cy.wait('@getNormalThumbnail')
     cy.get('.fui-Text').should('contains.text', 'Not Found')
   })
